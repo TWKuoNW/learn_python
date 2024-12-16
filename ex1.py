@@ -12,10 +12,10 @@ while(True): # 無窮迴圈
         if(player == ans): # 玩家猜對了
             print("答對了")
             
-            print("是否繼續遊玩:", end="")
-            cont = input()
+            player_input = input("是否繼續遊玩:")
+
             # 判斷玩家是否想繼續遊玩
-            if(cont == 'y'): # 想
+            if(player_input == 'y'): # 想
                 # 重新生成一個新答案，並且重置範圍
                 ans = int(random.random() * 100) + 1 
                 max = 100

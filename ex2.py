@@ -1,19 +1,74 @@
-import time
+# 物件導向程式設計OOP
+# 物件 object = 類別 class 的 實例instance
+# 類別 class 裡面只能放: field, method, constructor
 
-class human():
-    def __init__(self):  # 建立預設屬性的寫法
-        self.eye = 2       # 兩個眼睛
-        self.ear = 2       # 兩個耳朵
-        self.nose = 1      # 一個鼻子
-        self.mouth = 1     # 一張嘴巴
+class 初心者():    
+    def __init__(self, 姓名, 攻擊力=10, 防禦力=5, 血量=100): # constructor
+        self.姓名 = 姓名
+        self.攻擊力 = 攻擊力
+        self.防禦力 = 防禦力
+        self.血量 = 血量
     
-    def run(self):
-        print("啟動跑步模式...")
+    def 普通攻擊(self, 玩家): # method
+        if(玩家.防禦力 < self.攻擊力):
+            傷害 = self.攻擊力 - 玩家.防禦力
+            玩家.設定血量(玩家.血量 - 傷害)
+            print(f"{self.姓名}使用普通攻擊，攻擊了{玩家.姓名}，造成{傷害}點傷害。")
+        else:
+            print("普通攻擊無效")
 
-    def sleep(self):
-        print("睡覺...")
+    def 設定血量(self, 修改後血量):
+        self.血量 = 修改後血量
 
-KuoNW = human()        
-KuoNW.run()
-time.sleep(5)
-KuoNW.sleep()
+    def 狀態(self):
+        print(f"遊戲ID:{self.姓名}")
+        print(f"攻擊力:{self.攻擊力}")
+        print(f"防禦力:{self.防禦力}")
+        print(f"血量:{self.血量}")
+
+class 法師(初心者):
+    def __init__(self, 姓名, 攻擊力=20, 防禦力=10, 血量=150): # constructor
+        super().__init__(姓名, 攻擊力, 防禦力, 血量)
+        self.法力 = 20
+
+    def 魔法攻擊(self, 玩家):
+        if(玩家.防禦力 < self.法力):
+            傷害 = self.法力 - 玩家.防禦力
+            玩家.設定血量(玩家.血量 - 傷害)
+            print(f"{self.姓名}使用魔法攻擊，攻擊了{玩家.姓名}，造成{傷害}點傷害。")
+        else:
+            print("魔法攻擊無效")
+
+class 火毒魔導士(法師):
+    pass
+
+class 冰雷魔導士(法師):
+    pass
+
+def 印狀態(x, y):
+    x.狀態()
+    print()
+    y.狀態()
+
+郭乃文 = 法師(姓名 = "光之協奏者", 血量 = 150)
+曾奕銓 = 法師(姓名 = "暗之協奏者", 攻擊力 = 15)
+
+print("========================")
+print("初始狀態:")
+印狀態(郭乃文, 曾奕銓)
+print("========================")
+
+print("第一回合戰況:")
+郭乃文.普通攻擊(曾奕銓)
+印狀態(郭乃文, 曾奕銓)
+print("========================")
+
+print("第二回合戰況:")
+曾奕銓.普通攻擊(郭乃文)
+印狀態(郭乃文, 曾奕銓)
+print("========================")
+
+print("第三回合戰況:")
+郭乃文.魔法攻擊(曾奕銓)
+印狀態(郭乃文, 曾奕銓)
+print("========================")
